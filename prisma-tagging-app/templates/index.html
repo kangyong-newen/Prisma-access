@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Prisma Access 태깅 시스템</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>환영합니다, David!</h1>
+    <p>당신의 네트워크 환경에 따라 자동으로 태깅됩니다.</p>
+
+    <div id="status">
+      <span class="icon">🔄</span>
+      <span class="message">위치 확인 중...</span>
+    </div>
+    <div id="ip-info">IP 확인 중...</div>
+
+    <div id="end-tag" style="display: none;">
+      <button onclick="endTagging()">태그 종료</button>
+    </div>
+  </div>
+
+  <script>
+    let currentIP = null;
+
+    function endTagging() {
+      if (!currentIP) return;
+
+      fetch("https://secure.cloude.co.kr/end/tag", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ip: currentIP })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.body.classList.remove("internal", "external");
+        document.querySelector(".message").innerText = "태깅 종료됨: " + data.status;
+        document.querySelector(".icon").innerText = "✅";
+        document.getElementById("end-tag").style.display = "none";
+      });
+    }
+
+    fetch("https://api.ipify.org?format=json")
+      .then(res => res.json())
+      .then(data => {
+        currentIP = data.ip;
+        document.getElementById("ip-info").innerText = `IP: ${currentIP}`;
+
+        fetch("/get-tag-token", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ip: currentIP })
+        })
+        .then(res => res.json())
+        .then(data => {
+          const tagUrl = data.tag === "internal"
+            ? "https://secure.cloude.co.kr/internal/tag"
+            : "https://secure.cloude.co.kr/external/tag";
+
+          fetch(tagUrl, {
+            method: "POST",
+            headers: {
+              "Authorization": "Bearer " + data.token,
+              "Content-Type": "application/json"
+            }
+          })
+          .then(res => res.json())
+          .then(result => {
+            document.body.classList.add(result.tag);
+            document.querySelector(".message").innerText = `${result.tag} 태깅 완료`;
+            document.querySelector(".icon").innerText = result.tag === "internal" ? "🏢" : "🌐";
+            document.getElementById("end-tag").style.display = "block";
+          });
+        });
+      });
+  </script>
+</body>
+</html>
