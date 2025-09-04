@@ -4,8 +4,8 @@ JWT 기반의 내부망/외부망 태깅 시스템입니다.
 사용자의 공인 IP를 기준으로 태깅 정책을 분기하며, 보안 검증을 위해 JWT 서명 및 IP 일치 여부를 확인합니다.
 
 ### 🧭 시스템 구성
-- 프론트엔드서버: `user.cloude.co.kr`
-- 백엔드서버: `secure.cloude.co.kr`
+- 프론트엔드서버: `user.cloude.co.kr` (nginx + flask)
+- 백엔드서버: `secure.cloude.co.kr` (nginx + flask)
 - 내부망 기준 IP: `211.58.74.253`
 
 ### 🗺️ 피지컬 처리 플로우
