@@ -7,7 +7,7 @@ app = Flask(__name__)
 TAGGING_SECRET = "your-super-secret-key"
 
 # 내부망 공인 IP 기준
-INTERNAL_IP = "211.58.74.253"
+INTERNAL_IP = "<내부망 공인 IP 입력하세요>"
 
 # 메인 페이지
 @app.route("/")
