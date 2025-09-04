@@ -8,46 +8,11 @@ JWT 기반의 내부망/외부망 태깅 시스템입니다.
 - 백엔드서버: `secure.cloude.co.kr`
 - 내부망 기준 IP: `211.58.74.253`
 
-### 피지컬 처리 플로우 ###
+### 🗺️ 피지컬 처리 플로우
 <img width="2878" height="2094" alt="image" src="https://github.com/user-attachments/assets/f93204a5-e9bf-4aed-b4b4-faa87001d7a8" />
 
-### 논리적 처리 플로우 ###
+### 🗺️ 논리적 처리 플로우
 <img width="962" height="1048" alt="image" src="https://github.com/user-attachments/assets/006762cf-bba4-4174-8a8a-e62a51d55be2" />
-
-
-
-┌───────────────────────────┐
-│      사용자 브라우저          │
-│(https://user.cloude.co.kr)│
-└────────────┬──────────────┘
-             │
-             ▼
-┌───────────────────────────┐
-│  Nginx (user.cloude.co.kr)│
-│  - SSL termination        │
-│  - Reverse proxy to Flask │
-└────────────┬──────────────┘
-             │
-             ▼
-┌───────────────────────────┐
-│  Flask App (user.cloude)  │
-│  - IP 조회 / JWT 생성       │ 
-│  - QR / 인증서 다운로드       │
-└────────────┬──────────────┘
-             │ JWT + IP
-             ▼
-┌────────────────────────────┐
-│ Nginx (secure.cloude.co.kr)│
-│ - SSL termination          │
-│ - Reverse proxy to Flask   │
-└────────────┬────────────── ┘
-             │
-             ▼
-┌────────────────────────────┐
-│ Flask App (secure.cloude)  │
-│ - JWT 검증                  │
-│ - 태깅 처리                  │
-└────────────────────────────┘
 
 ### 고려사항
 - XFF 신뢰성 : XFF 헤더는 중간 프록시나 NAT 환경에 따라 조작 가능성이 있음으로 첫 번쨰 XFF 헤더에 담기는 IP를 정확하게 파싱할 수 있어야 함.
@@ -68,7 +33,6 @@ JWT 기반의 내부망/외부망 태깅 시스템입니다.
 - JWT 서명 및 만료 검증
 
 ### 📦 설치
-
-
+Coming soon
 
 
