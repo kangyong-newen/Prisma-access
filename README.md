@@ -8,7 +8,13 @@ JWT 기반의 내부망/외부망 태깅 시스템입니다.
 - 백엔드서버: `secure.cloude.co.kr`
 - 내부망 기준 IP: `211.58.74.253`
 
+### 피지컬 처리 플로우 ###
+<img width="2878" height="2094" alt="image" src="https://github.com/user-attachments/assets/f93204a5-e9bf-4aed-b4b4-faa87001d7a8" />
+
+### 논리적 처리 플로우 ###
 <img width="962" height="1048" alt="image" src="https://github.com/user-attachments/assets/006762cf-bba4-4174-8a8a-e62a51d55be2" />
+
+
 
 ┌───────────────────────────┐
 │      사용자 브라우저          │
